@@ -58,8 +58,6 @@ public class KakaoService {
     }
 
 
-
-
     public KakaoUserInfoResponseDto getUserInfo(String accessToken) {
 
         KakaoUserInfoResponseDto userInfo = WebClient.create(KAUTH_USER_URL_HOST)
