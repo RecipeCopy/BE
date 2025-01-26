@@ -30,7 +30,12 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/swagger-resources/**",
                         "/webjars/**",
-                        "/callback/**"
+                        "/callback/**",
+                        "/camera/open",
+                        "/fridge/add",
+                        "/fridge",
+                        "/fridge/{userId}",
+                        "/ingredients/list"
                 ).permitAll()
                 .anyRequest().authenticated()
         );
