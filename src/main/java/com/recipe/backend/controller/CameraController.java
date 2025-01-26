@@ -15,4 +15,6 @@ public class CameraController {
         // 실제 카메라 열기 로직은 프론트엔드에서 처리
         return "Camera opened successfully!";
     }
+
+
 }

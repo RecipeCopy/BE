@@ -2,9 +2,6 @@ package com.recipe.backend.dto;
 
 import java.util.List;
 
-
-import java.util.List;
-
 public class AddIngredientsRequest {
 
     private Long userId; // 사용자 ID
