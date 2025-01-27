@@ -30,6 +30,7 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/swagger-resources/**",
                         "/webjars/**",
+                        "/callback/**",
                         "/api/recipes/**"
                 ).permitAll()
                 .anyRequest().authenticated()
