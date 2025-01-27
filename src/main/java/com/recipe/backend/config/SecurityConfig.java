@@ -32,7 +32,7 @@ public class SecurityConfig {
                         "/webjars/**",
                         "/callback/**",
                         "/page/**",
-                        "/login/**",
+                        "/api/**",
                         "/api/recipes/**"
                 ).permitAll()
                 .anyRequest().authenticated()
