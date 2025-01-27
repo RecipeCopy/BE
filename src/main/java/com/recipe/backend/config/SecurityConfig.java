@@ -23,7 +23,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()); // CSRF 비활성화
         http.cors(cors -> cors.configurationSource(corsConfigurationSource())); // CORS 설정
 
-        // URL 허용 설정
+        // URL 허용 설정 (두 브랜치의 모든 URL 통합)
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                         "/swagger-ui/**",
@@ -35,7 +35,10 @@ public class SecurityConfig {
                         "/fridge/{userId}",
                         "/ingredients/list",
                         "/fridge/add",
-                        "/fridge/**"
+                        "/fridge/**",
+                        "/page/**",
+                        "/login/**",
+                        "/api/recipes/**"
                 ).permitAll()
                 .anyRequest().authenticated()
         );
@@ -66,4 +69,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
