@@ -25,25 +25,27 @@ public class KakaoLoginController {
     @GetMapping("/callback")
     public ResponseEntity<?> callback(@RequestParam("code") String code, HttpSession session) {
         try {
-            // Access Token 발급
+            // Access Token 가져오기
             String accessToken = kakaoService.getAccessTokenFromKakao(code);
-            log.info("Access Token: {}", accessToken);
 
             // 사용자 정보 가져오기
             KakaoUserInfoResponseDto userInfo = kakaoService.getUserInfo(accessToken);
-            log.info("Kakao User Info: {}", userInfo);
 
             // 사용자 정보 저장 또는 업데이트
             KakaoUserResponseDTO userResponse = userService.saveOrUpdateUser(userInfo);
-            log.info("Saved User Info: {}", userResponse);
 
             // 세션에 사용자 정보 저장
-            session.setAttribute("loginUser", userResponse);
+            session.setAttribute("currentUser", userResponse);
 
+            // 로그 추가
+            log.info("사용자 정보가 세션에 저장되었습니다: {}", session.getAttribute("currentUser"));
+
+            // 응답 생성
             return ResponseEntity.ok(userResponse);
+
         } catch (Exception e) {
-            log.error("Error during Kakao login: {}", e.getMessage(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Kakao login failed");
+            log.error("로그인 처리 중 오류 발생: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그인 실패");
         }
     }
 

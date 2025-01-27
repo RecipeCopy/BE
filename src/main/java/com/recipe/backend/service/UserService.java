@@ -17,6 +17,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public UserEntity findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("해당 사용자를 찾을 수 없습니다."));
+    }
+
     public KakaoUserResponseDTO saveOrUpdateUser(KakaoUserInfoResponseDto userInfo) {
         try {
             String kakaoId = userInfo.getId().toString();
