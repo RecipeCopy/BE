@@ -37,7 +37,7 @@ public class SecurityConfig {
                         "/fridge/add",
                         "/fridge/**",
                         "/page/**",
-                        "/login/**",
+                        "/api/**",
                         "/api/recipes/**"
                 ).permitAll()
                 .anyRequest().authenticated()
