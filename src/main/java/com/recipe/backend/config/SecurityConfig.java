@@ -32,10 +32,10 @@ public class SecurityConfig {
                         "/webjars/**",
                         "/callback/**",
                         "/camera/open",
-                        "/fridge/add",
-                        "/fridge",
                         "/fridge/{userId}",
-                        "/ingredients/list"
+                        "/ingredients/list",
+                        "/fridge/add",
+                        "/fridge/**"
                 ).permitAll()
                 .anyRequest().authenticated()
         );

@@ -12,5 +12,7 @@ public class AddIngredientsResponse {
         this.savedIngredients = savedIngredients;
     }
 
-    // Getters
+
 }
+
+

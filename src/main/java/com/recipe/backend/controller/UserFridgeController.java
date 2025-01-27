@@ -5,10 +5,14 @@ import com.recipe.backend.service.*;
 import com.recipe.backend.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.http.ResponseEntity.*;
 
 @RestController
 @RequestMapping("/fridge")
@@ -27,16 +31,42 @@ public class UserFridgeController {
         return userFridgeService.getUserFridge(userId);
     }
 
-    @PostMapping
+    /*@PostMapping
     @Operation(summary = "냉장고에 재료 추가(아마 카메라로 인식하고 추가할때 사용할 예정..)", description = "특정 사용자의 냉장고에 하나의 재료를 추가합니다.")
     public UserFridge addIngredientToFridge(@RequestParam String ingredientName, @RequestParam Long userId) {
         return userFridgeService.addIngredientToFridge(ingredientName, userId);
+    }*/
+
+    @PostMapping
+    @Operation(summary = "냉장고에 재료 추가(아마 카메라로 인식하고 추가할때 사용할 예정..)", description = "특정 사용자의 냉장고에 하나의 재료를 추가합니다.")
+    public ResponseEntity<?> addIngredientToFridge(@RequestParam String ingredientName, @RequestParam Long userId) {
+        try {
+            UserFridge savedIngredient = userFridgeService.addIngredientToFridge(ingredientName, userId);
+            return ok(savedIngredient);
+        } catch (IllegalArgumentException e) {
+            return status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
+
+
 
     @PostMapping("/add")
     @Operation(summary = "냉장고에 여러 재료 추가", description = "특정 사용자의 냉장고에 여러 재료를 한 번에 추가합니다.")
     public ResponseEntity<?> addIngredientsToFridge(@RequestBody AddIngredientsRequest request) {
-        List<UserFridge> savedIngredients = userFridgeService.addIngredientsToFridge(request.getUserId(), request.getIngredients());
-        return ResponseEntity.ok(new AddIngredientsResponse("Ingredients added to the fridge", savedIngredients));
+
+        try {
+            List<UserFridge> savedIngredients = userFridgeService.addIngredientsToFridge(request.getUserId(), request.getIngredients());
+            return ok(new AddIngredientsResponse("Ingredients added to the fridge", savedIngredients));
+        } catch (Exception e) {
+            e.printStackTrace(); // 예외 로그 출력
+            return status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+
     }
+
+
+
+
+
+
 }
