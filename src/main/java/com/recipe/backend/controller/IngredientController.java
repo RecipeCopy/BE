@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ingredients")
+@RequestMapping("/api/ingredients")
 @Tag(name = "Ingredient API", description = "재료 관련 API")
 public class IngredientController {
 

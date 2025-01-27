@@ -7,6 +7,7 @@ public class AddIngredientsRequest {
     private Long userId; // 사용자 ID
     private List<String> ingredients; // 선택한 재료 목록
 
+    // Getter와 Setter
     public Long getUserId() {
         return userId;
     }

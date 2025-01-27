@@ -12,6 +12,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,14 +32,14 @@ public class SecurityConfig {
                         "/swagger-resources/**",
                         "/webjars/**",
                         "/callback/**",
-                        "/camera/open",
-                        "/fridge/{userId}",
-                        "/ingredients/list",
-                        "/fridge/add",
-                        "/fridge/**",
                         "/page/**",
                         "/api/**",
-                        "/api/recipes/**"
+                        "/api/recipes/**",
+                        "/api/camera/open",
+                        "/api/fridge/{userId}",
+                        "/api/ingredients/list",
+                        "/api/fridge/add",
+                        "/api/fridge/**"
                 ).permitAll()
                 .anyRequest().authenticated()
         );

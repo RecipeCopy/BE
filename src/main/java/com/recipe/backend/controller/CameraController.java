@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/camera")
+@RequestMapping("/api/camera")
 @Tag(name = "camera API", description = "카메라 API")
 public class CameraController {
 
