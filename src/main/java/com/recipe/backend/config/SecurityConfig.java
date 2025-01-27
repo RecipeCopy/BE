@@ -12,6 +12,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()); // CSRF 비활성화
         http.cors(cors -> cors.configurationSource(corsConfigurationSource())); // CORS 설정
 
-        // URL 허용 설정
+        // URL 허용 설정 (두 브랜치의 모든 URL 통합)
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                         "/swagger-ui/**",
@@ -33,7 +34,12 @@ public class SecurityConfig {
                         "/callback/**",
                         "/page/**",
                         "/api/**",
-                        "/api/recipes/**"
+                        "/api/recipes/**",
+                        "/api/camera/open",
+                        "/api/fridge/{userId}",
+                        "/api/ingredients/list",
+                        "/api/fridge/add",
+                        "/api/fridge/**"
                 ).permitAll()
                 .anyRequest().authenticated()
         );
@@ -64,4 +70,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
