@@ -33,7 +33,7 @@ public class UserInfoController {
 //    }
 
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public ResponseEntity<?> getCurrentUser(HttpSession session) {
         // 세션에서 사용자 정보 가져오기
         KakaoUserResponseDTO currentUser = (KakaoUserResponseDTO) session.getAttribute("currentUser");

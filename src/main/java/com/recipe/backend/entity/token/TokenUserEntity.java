@@ -62,7 +62,7 @@ public class TokenUserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userId; // 로그인 시 사용되는 ID
+        return this.username; // 로그인 시 사용되는 ID
     }
 
     @Override
