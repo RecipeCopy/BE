@@ -3,6 +3,7 @@ package com.recipe.backend.controller.token;
 import com.recipe.backend.dto.ResponseDTO;
 import com.recipe.backend.dto.token.LoginRequestDTO;
 import com.recipe.backend.util.token.JwtTokenProvider;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Operation(summary = "로그인", description = "회원가입한 정보로 로그인을 합니다.")
     @PostMapping
     public ResponseEntity<ResponseDTO<Map<String, Object>>> login(@RequestBody LoginRequestDTO request) {
         try {
