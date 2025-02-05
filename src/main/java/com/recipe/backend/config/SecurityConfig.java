@@ -43,15 +43,12 @@ public class SecurityConfig {
                         "/api/**",
                         "/api/recipes/**",
                         "/api/camera/open",
-                        "/api/fridge/{userId}",
                         "/api/ingredients/list",
-                        "/api/fridge/add",
-                        "/api/fridge/**",
                         "/api/login",
                         "/api/signup/**",
                         "/api/recipes/recommend/{userId}"
                 ).permitAll()
-                .requestMatchers("/api/scrap/**").authenticated() // 🔥 인증된 사용자만 사용 가능
+                .requestMatchers("/api/scrap/**","/api/fridge/**").authenticated() // 🔥 인증된 사용자만 사용 가능
                 .anyRequest().authenticated()
         );
 

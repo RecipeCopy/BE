@@ -1,6 +1,8 @@
 package com.recipe.backend.dto;
 
-import com.recipe.backend.entity.*;
+
+import com.recipe.backend.entity.UserFridge;
+
 import java.util.List;
 
 public class AddIngredientsResponse {

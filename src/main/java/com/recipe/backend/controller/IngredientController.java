@@ -1,6 +1,7 @@
 package com.recipe.backend.controller;
 
-import com.recipe.backend.service.*;
+
+import com.recipe.backend.service.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
