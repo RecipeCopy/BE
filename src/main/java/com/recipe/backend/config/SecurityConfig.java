@@ -48,7 +48,8 @@ public class SecurityConfig {
                         "/api/signup/**",
                         "/api/recipes/recommend/{userId}"
                 ).permitAll()
-                .requestMatchers("/api/scrap/**","/api/fridge/**").authenticated() // 🔥 인증된 사용자만 사용 가능
+                .requestMatchers("/api/fridge/**").authenticated()
+                .requestMatchers("/api/scrap/**").authenticated() // 🔥 인증된 사용자만 사용 가능
                 .anyRequest().authenticated()
         );
 

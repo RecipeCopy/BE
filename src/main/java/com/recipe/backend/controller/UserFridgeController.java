@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.springframework.http.ResponseEntity.*;
 
-@CrossOrigin(origins = "http://localhost:8080")
+
 @RestController
 @RequestMapping("/api/fridge")
 @Tag(name = "User Fridge API", description = "사용자의 냉장고 관리 API")
@@ -30,14 +30,14 @@ public class UserFridgeController {
     }
 
     @GetMapping("/{userId}")
-    @Operation(summary = "사용자의 냉장고 조회", description = "특정 사용자의 냉장고에 저장된 재료 목록을 반환합니다.")
+    @Operation(summary = "사용자의 냉장고 조회", description = "특정 사용자의 냉장고에 저장된 재료 목록을 반환합니다.",security = @SecurityRequirement(name = "JWT TOKEN"))
     public ResponseEntity<List<UserFridge>> getUserFridge(@PathVariable Long userId) {
         List<UserFridge> fridgeContents = userFridgeService.getUserFridge(userId);
         return ok(fridgeContents);
     }
 
     @PostMapping
-    @Operation(summary = "냉장고에 재료 추가", description = "고정 재료에 없는 새로운 재료를 추가합니다. 이미 존재하는 재료는 추가되지 않습니다.")
+    @Operation(summary = "냉장고에 재료 추가", description = "고정 재료에 없는 새로운 재료를 추가합니다. 이미 존재하는 재료는 추가되지 않습니다.",security = @SecurityRequirement(name = "JWT TOKEN"))
     public ResponseEntity<?> addIngredientToFridge(@RequestParam String ingredientName, @RequestParam Long userId) {
         try {
             if (userFridgeService.isIngredientAlreadyInFridge(ingredientName, userId)) {
@@ -55,7 +55,7 @@ public class UserFridgeController {
             consumes = "application/json",
             produces = "application/json"
     )
-    @Operation(summary = "냉장고에 여러 재료 추가", description = "고정 재료 목록에서만 선택하여 여러 재료를 추가합니다. 이미 존재하는 재료는 추가되지 않습니다.")
+    @Operation(summary = "냉장고에 여러 재료 추가", description = "고정 재료 목록에서만 선택하여 여러 재료를 추가합니다. 이미 존재하는 재료는 추가되지 않습니다.",security = @SecurityRequirement(name = "JWT TOKEN"))
     public ResponseEntity<AddIngredientsResponse> addIngredientsToFridge(@RequestBody AddIngredientsRequest request) {
         try {
             List<String> fixedIngredients = userFridgeService.getFixedIngredients();
