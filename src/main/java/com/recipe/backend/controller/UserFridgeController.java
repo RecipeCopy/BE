@@ -41,7 +41,7 @@ public class UserFridgeController {
     public ResponseEntity<?> addIngredientToFridge(@RequestParam String ingredientName, @RequestParam Long userId) {
         try {
             if (userFridgeService.isIngredientAlreadyInFridge(ingredientName, userId)) {
-                return status(HttpStatus.BAD_REQUEST).body("Ingredient already exists in the user's fridge");
+                return status(HttpStatus.BAD_REQUEST).body("이미 추가된 재료입니다.");
             }
             UserFridge savedIngredient = userFridgeService.addIngredientToFridge(ingredientName, userId);
             return ok(savedIngredient);
