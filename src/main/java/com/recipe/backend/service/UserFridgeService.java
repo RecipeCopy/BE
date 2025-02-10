@@ -1,13 +1,11 @@
 package com.recipe.backend.service;
 
-
 import com.recipe.backend.entity.UserFridge;
 import com.recipe.backend.repository.UserFridgeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class UserFridgeService {
@@ -18,6 +16,26 @@ public class UserFridgeService {
         this.userFridgeRepository = userFridgeRepository;
     }
 
+    public List<UserFridge> getUserFridgeByToken(String token) {
+        Long userId = findUserIdByToken(token);
+        return getUserFridge(userId);
+    }
+
+    public boolean isIngredientAlreadyInFridgeByToken(String ingredientName, String token) {
+        Long userId = findUserIdByToken(token);
+        return isIngredientAlreadyInFridge(ingredientName, userId);
+    }
+
+    public UserFridge addIngredientToFridgeByToken(String ingredientName, String token) {
+        Long userId = findUserIdByToken(token);
+        return addIngredientToFridge(ingredientName, userId);
+    }
+
+    public List<UserFridge> addIngredientsToFridgeByToken(String token, List<String> ingredients) {
+        Long userId = findUserIdByToken(token);
+        return addIngredientsToFridge(userId, ingredients);
+    }
+
     public List<UserFridge> getUserFridge(Long userId) {
         return userFridgeRepository.findByUserId(userId);
     }
@@ -25,7 +43,6 @@ public class UserFridgeService {
     public boolean isIngredientAlreadyInFridge(String ingredientName, Long userId) {
         return userFridgeRepository.existsByIngredientNameAndUserId(ingredientName, userId);
     }
-
 
     public UserFridge addIngredientToFridge(String ingredientName, Long userId) {
         if (!userFridgeRepository.existsByIngredientNameAndUserId(ingredientName, userId)) {
@@ -53,7 +70,10 @@ public class UserFridgeService {
                 "양파", "오이", "파스타면", "햄"
         );
     }
+
+    private Long findUserIdByToken(String token) {
+        // 토큰으로 사용자 ID를 찾는 로직 (예: JWT에서 추출 또는 매핑 데이터 사용)
+        // 예제: 간단히 토큰 해시값을 userId로 변환
+        return token.hashCode() & 0xfffffffL;
+    }
 }
-
-
-
