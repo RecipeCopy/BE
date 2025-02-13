@@ -20,9 +20,9 @@ public class RecipeRecommendService {
         this.recipeService = recipeService;
     }
 
-    public List<RecommendedRecipeDto> recommendRecipes(Long userId) {
-        // 사용자의 냉장고에 있는 재료 가져오기
-        List<UserFridge> userFridgeItems = userFridgeService.getUserFridge(userId);
+    public List<RecommendedRecipeDto> recommendRecipes(String token) {
+        // 사용자의 냉장고에 있는 재료 가져오기 (토큰 이용)
+        List<UserFridge> userFridgeItems = userFridgeService.getUserFridgeByToken(token);
         List<String> userIngredients = userFridgeItems.stream()
                 .map(UserFridge::getIngredientName)
                 .toList();
@@ -34,7 +34,7 @@ public class RecipeRecommendService {
         for (RecipeDto recipe : allRecipes) {
             List<String> matchedIngredients = new ArrayList<>();
 
-            // 재료 파싱 : 줄바꿈과 공백을 기준으로 분리
+            // 줄바꿈과 공백을 기준으로 분리
             String[] recipeIngredients = recipe.getIngredients().split("[\n,\\s]+");
 
             for (String ingredient : userIngredients) {
