@@ -50,7 +50,7 @@ public class UserFridgeController {
         }
     }
 
-    @DeleteMapping("/{ingredientName}")
+    @DeleteMapping("delete/{ingredientName}")
     @Operation(summary = "냉장고에서 재료 삭제",
             description = "JWT 토큰을 사용하여 냉장고에서 재료를 삭제합니다.",
             security = @SecurityRequirement(name = "JWT TOKEN"))
