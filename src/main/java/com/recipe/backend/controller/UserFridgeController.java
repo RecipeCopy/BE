@@ -50,6 +50,29 @@ public class UserFridgeController {
         }
     }
 
+    @DeleteMapping("/{ingredientName}")
+    @Operation(summary = "냉장고에서 재료 삭제",
+            description = "JWT 토큰을 사용하여 냉장고에서 재료를 삭제합니다.",
+            security = @SecurityRequirement(name = "JWT TOKEN"))
+    public ResponseEntity<?> deleteIngredientFromFridge(@PathVariable String ingredientName,
+                                                        @RequestHeader("Authorization") String token) {
+        String jwtToken = token.replace("Bearer ", ""); // Bearer 제거
+        try {
+            // 서비스 레이어에서 해당 재료 삭제를 처리하도록 구현되어 있다고 가정합니다.
+            boolean deleted = userFridgeService.deleteIngredientFromFridgeByToken(ingredientName, jwtToken);
+            if (deleted) {
+                return ResponseEntity.ok("재료가 삭제되었습니다.");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("해당 재료를 찾을 수 없습니다.");
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
+        }
+    }
+
+
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
     @Operation(summary = "냉장고에 여러 재료 추가", description = "JWT 토큰을 사용하여 여러 재료를 추가합니다.", security = @SecurityRequirement(name = "JWT TOKEN"))
     public ResponseEntity<AddIngredientsResponse> addIngredientsToFridge(@RequestBody AddIngredientsRequest request, @RequestHeader("Authorization") String token) {
