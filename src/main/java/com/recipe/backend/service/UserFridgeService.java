@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserFridgeService {
@@ -15,6 +16,18 @@ public class UserFridgeService {
     public UserFridgeService(UserFridgeRepository userFridgeRepository) {
         this.userFridgeRepository = userFridgeRepository;
     }
+
+    public boolean deleteIngredientFromFridgeByToken(String ingredientName, String token) {
+        Long userId = findUserIdByToken(token);
+        // 해당 재료가 사용자의 냉장고에 존재하는지 확인합니다.
+        Optional<UserFridge> ingredientOptional = userFridgeRepository.findByIngredientNameAndUserId(ingredientName, userId);
+        if (ingredientOptional.isPresent()) {
+            userFridgeRepository.delete(ingredientOptional.get());
+            return true;
+        }
+        return false;
+    }
+
 
     public List<UserFridge> getUserFridgeByToken(String token) {
         Long userId = findUserIdByToken(token);
